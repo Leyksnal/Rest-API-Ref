@@ -66,6 +66,26 @@ const readBlogs = async (req, res) =>{
 }
 
 
+const readComments = async (req, res) =>{
+    try {
+
+        const blog = await blogModel.findById( req.params.id ).populate('commentUnderBlog')
+        res.status(200).json({
+            status: `Thes are comments`,
+            data: {
+                blog
+            }
+        })
+        
+    } catch (error) {
+        res.status(404).json({
+            status: `Failed`,
+            message: error.message
+        })
+    }
+}
+
+
 const oneBlog = async (req, res) =>{
     try {
 
@@ -132,5 +152,6 @@ module.exports = {
     oneBlog,
     updateBlog,
     deleteBlog,
-    postComment
+    postComment,
+    readComments
 }

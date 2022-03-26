@@ -1,6 +1,6 @@
 const express = require ('express')
 const routes = express.Router()
-const { postBlog, readBlogs, oneBlog, updateBlog, deleteBlog, postComment } = require('../controller/controller')
+const { postBlog, readBlogs, oneBlog, updateBlog, deleteBlog, postComment, readComments } = require('../controller/controller')
 
 routes
     .route("/blogs")
@@ -18,5 +18,10 @@ routes
 routes
     .route("/blogs/:id/comment")
     .post(postComment) 
+
+
+routes
+    .route("/blogs/:id/comments")
+    .get(readComments) 
 
 module.exports = routes
