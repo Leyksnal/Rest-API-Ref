@@ -10,7 +10,7 @@ const blogSchema = new Schema({
         type: String,
         required: true
     },
-    comment:[ {
+    commentUnderBlog:[ {
         type: Schema.Types.ObjectId,
         required: true
     }]
@@ -18,4 +18,24 @@ const blogSchema = new Schema({
 
 const blogModel = mongoose.model("Blogs", blogSchema)
 
-module.exports = blogModel
+const commentSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    msg: {
+        type: String,
+        required: true
+    },
+    poster: {
+        type: Schema.Types.ObjectId,
+        ref: 'Blogs'
+    }
+}, {timestamps: true})
+
+const commentModel = mongoose.model('comment', commentSchema)
+
+module.exports = {
+    blogModel,
+    commentModel
+}

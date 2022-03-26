@@ -1,4 +1,4 @@
-const blogModel = require('../model/model')
+const {blogModel, commentModel} = require('../model/model')
 
 const postBlog = async (req, res)=>{
     try {
@@ -14,7 +14,32 @@ const postBlog = async (req, res)=>{
             data: blog
         })
     } catch (error) {
-        res.status(505).json({
+        res.status(500).json({
+            status: `Failed`,
+            message: error.message
+        })
+    }
+}
+
+const postComment = async (req, res) =>{
+    try {
+
+        const blog = await blogModel.findById( req.params.id )
+        const comment = new commentModel(req.body)
+        comment.poster = blog
+        comment.save()
+        blog.commentUnderBlog.push(comment)
+        blog.save()
+        res.status(200).json({
+            status: `Success`,
+            data: {
+                comment
+            }
+        })
+
+        
+    } catch (error) {
+        res.status(500).json({
             status: `Failed`,
             message: error.message
         })
@@ -106,5 +131,6 @@ module.exports = {
     readBlogs,
     oneBlog,
     updateBlog,
-    deleteBlog
+    deleteBlog,
+    postComment
 }
