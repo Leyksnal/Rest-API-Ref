@@ -12,7 +12,7 @@ routes
 
 // All this routes must pass id channel
 routes
-    .route("/blogs/:id")
+    .route("/blogs/:blogId")
     .get(oneBlog)
     .patch(updateBlog)
     .delete(deleteBlog)
@@ -21,14 +21,14 @@ routes
 
 // This route for new comment add
 routes
-    .route("/blogs/:id/comment")
+    .route("/blogs/:blogId/comment")
     .post(postComment) 
 
 
 
 // This routes to fetch comments
 routes
-    .route("/blogs/:id/comments")
+    .route("/blogs/:blogId/comment")
     .get(readComments) 
 
 module.exports = routes

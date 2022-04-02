@@ -30,7 +30,7 @@ const postComment = async (req, res) =>{
     try {
 
         // Capturing a blog id
-        const blog = await blogModel.findById( req.params.id )
+        const blog = await blogModel.findById( req.params.blogId )
         // Instatiate from the comment
         const comment = new commentModel(req.body)
         // Tighing the comment to a blog (id)
@@ -86,7 +86,7 @@ const readComments = async (req, res) =>{
 
 
         // Capture each of the blogs and populate the comments tied to it
-        const blog = await blogModel.findById( req.params.id ).populate('commentUnderBlog')
+        const blog = await blogModel.findById( req.params.blogId ).populate('commentUnderBlog')
         res.status(200).json({
             status: `Thes are comments`,
             data: {
